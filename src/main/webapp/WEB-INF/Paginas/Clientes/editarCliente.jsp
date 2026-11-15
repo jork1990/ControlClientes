@@ -20,11 +20,11 @@
         <title>EDITAR CLIENTES</title>
     </head>
     <body>
-        <jsp:include page="../comunes/cabecero.jsp" />
+        <jsp:include page="../Comunes/cabecero.jsp" />
 
         <form action="${pageContext.request.contextPath}/ServletControlador?accion=modificar&idCliente=${cliente.idCliente}"
               method="POST" class="was-validated">
-            <jsp:include page="../comunes/botonesNavegacionEdicion.jsp" /> 
+            <jsp:include page="../Comunes/botonesNavegacionEdicion.jsp" /> 
             <section id="details"> 
                 <div class="container">
                     <div class="row">
@@ -61,6 +61,28 @@
                 </div>
             </section>
         </form>
+
+        <section id="credito" class="mt-4">
+            <div class="container">
+                <div class="card">
+                    <div class="card-header">
+                        <h4>Reclamar Cr&eacute;dito</h4>
+                    </div>
+                    <div class="card-body">
+                        <form action="${pageContext.request.contextPath}/ServletControlador?accion=reclamarCredito&idCliente=${cliente.idCliente}"
+                              method="POST" class="was-validated">
+                            <div class="form-group">
+                                <label for="monto">Monto</label>
+                                <input type="number" class="form-control" name="monto" id="monto" required min="0.01" step="0.01">
+                            </div>
+                            <button type="submit" class="btn btn-primary mt-2">
+                                <i class="fas fa-coins"></i> Abonar al Saldo
+                            </button>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </section>
 
     </body>
 </html>

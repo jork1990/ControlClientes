@@ -32,12 +32,12 @@
         <title>CLIENTES</title>
     </head>
     <body>
-        <jsp:include page="WEB-INF/paginas/comunes/cabecero.jsp" />
-        <jsp:include page="WEB-INF/paginas/comunes/botonesNavegacion.jsp" />
+        <jsp:include page="WEB-INF/Paginas/Comunes/cabecero.jsp" />
+        <jsp:include page="WEB-INF/Paginas/Comunes/botonesNavegacion.jsp" />
         
-        <jsp:include page="WEB-INF/paginas/cliente/listadoClientes.jsp" />
+        <jsp:include page="WEB-INF/Paginas/Clientes/listadoClientes.jsp" />
         
-         <jsp:include page="WEB-INF/paginas/comunes/piePagina.jsp" /> 
+         <jsp:include page="WEB-INF/Paginas/Comunes/piePagina.jsp" /> 
     </body>
 </html>
 

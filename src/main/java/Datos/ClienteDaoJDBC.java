@@ -22,6 +22,7 @@ public class ClienteDaoJDBC {
  private static final String SQL_INSERT="INSERT INTO clientes(nombre,apellido,email,telefono,saldo) VALUES(?,?,?,?,?)";
  private static final String SQL_UPDATE="UPDATE clientes SET nombre=?, apellido=?, email=?, telefono=?, saldo=? WHERE id_cliente=?";    
  private static final String SQL_DELETE= "DELETE FROM clientes WHERE id_cliente=?";
+ private static final String SQL_ABONAR_CREDITO="UPDATE clientes SET saldo=saldo+? WHERE id_cliente=?";
     
  public List<Cliente> listar(){
      Connection conn=null;
@@ -163,6 +164,32 @@ public class ClienteDaoJDBC {
          Conexion.Close(conn);
                  
      }  
+     return rows;
+ }
+ /**
+  * Suma un monto de credito al saldo del cliente en una sola sentencia SQL,
+  * para evitar perder abonos si dos peticiones llegan al mismo tiempo.
+  * @return numero de registros modificados (0 si el cliente no existe)
+  */
+ public int abonarCredito(int idCliente, double monto){
+     Connection conn=null;
+     PreparedStatement stmt=null;
+     int rows=0;
+
+     try {
+         conn=Conexion.getConnection();
+         stmt=conn.prepareStatement(SQL_ABONAR_CREDITO);
+         stmt.setDouble(1, monto);
+         stmt.setInt(2, idCliente);
+
+         rows=stmt.executeUpdate();
+
+     } catch (Exception e) {
+         e.printStackTrace(System.out);
+     }finally{
+         Conexion.Close(stmt);
+         Conexion.Close(conn);
+     }
      return rows;
  }
     public static void main(String[] args) {
