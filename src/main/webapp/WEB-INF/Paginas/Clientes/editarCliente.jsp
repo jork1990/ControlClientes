@@ -20,11 +20,11 @@
         <title>EDITAR CLIENTES</title>
     </head>
     <body>
-        <jsp:include page="../comunes/cabecero.jsp" />
+        <jsp:include page="../Comunes/cabecero.jsp" />
 
         <form action="${pageContext.request.contextPath}/ServletControlador?accion=modificar&idCliente=${cliente.idCliente}"
               method="POST" class="was-validated">
-            <jsp:include page="../comunes/botonesNavegacionEdicion.jsp" /> 
+            <jsp:include page="../Comunes/botonesNavegacionEdicion.jsp" /> 
             <section id="details"> 
                 <div class="container">
                     <div class="row">

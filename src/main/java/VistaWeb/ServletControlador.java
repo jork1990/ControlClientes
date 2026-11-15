@@ -94,7 +94,7 @@ public class ServletControlador extends HttpServlet {
       int idCliente=Integer.parseInt(request.getParameter("idCliente"));
       Cliente cliente = new ClienteDaoJDBC().buscar(new Cliente(idCliente));
       request.setAttribute("cliente", cliente);
-      String jspEditar="/WEB-INF/paginas/cliente/editarCliente.jsp";
+      String jspEditar="/WEB-INF/Paginas/Clientes/editarCliente.jsp";
       request.getRequestDispatcher(jspEditar).forward(request, response);
     }
     protected void modificarCliente(HttpServletRequest request, HttpServletResponse response)
@@ -134,7 +134,7 @@ public class ServletControlador extends HttpServlet {
       String saldoString= request.getParameter("saldo");
       if(saldoString!=null && !"".equals(saldoString))
             saldo = Double.parseDouble(saldoString);
-      Cliente cliente = new Cliente(nombre);
+      Cliente cliente = new Cliente(nombre, apellido, email, telefno, saldo);
       int resgistrosModificados= new ClienteDaoJDBC().insertar(cliente);
       this.accionDefault(request, response);
       
