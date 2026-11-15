@@ -56,6 +56,8 @@ public class ServletControlador extends HttpServlet {
                     this.modificarCliente(request, response); break;
                 case "eliminar":
                     this.eliminarCliente(request, response); break;
+                case "reclamarCredito":
+                    this.reclamarCredito(request, response); break;
                         
                 default:
                   this.accionDefault(request, response);  
@@ -136,5 +138,28 @@ public class ServletControlador extends HttpServlet {
       int resgistrosModificados= new ClienteDaoJDBC().insertar(cliente);
       this.accionDefault(request, response);
       
+    }
+
+    protected void reclamarCredito(HttpServletRequest request, HttpServletResponse response)
+            throws ServletException, IOException {
+        int idCliente;
+        double monto;
+        try {
+            idCliente = Integer.parseInt(request.getParameter("idCliente"));
+            monto = Double.parseDouble(request.getParameter("monto"));
+        } catch (NumberFormatException | NullPointerException e) {
+            response.sendError(HttpServletResponse.SC_BAD_REQUEST, "idCliente y monto deben ser numericos");
+            return;
+        }
+        if (Double.isNaN(monto) || Double.isInfinite(monto) || monto <= 0) {
+            response.sendError(HttpServletResponse.SC_BAD_REQUEST, "El monto debe ser mayor que cero");
+            return;
+        }
+        int registrosModificados = new ClienteDaoJDBC().abonarCredito(idCliente, monto);
+        if (registrosModificados == 0) {
+            response.sendError(HttpServletResponse.SC_NOT_FOUND, "Cliente no encontrado");
+            return;
+        }
+        this.accionDefault(request, response);
     }
 }
